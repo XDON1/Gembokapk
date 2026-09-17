@@ -2,6 +2,8 @@ name: Build APK Otomatis
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
   workflow_dispatch:
@@ -31,4 +33,5 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: eas build --platform android --profile preview --non-interactive
+
 
