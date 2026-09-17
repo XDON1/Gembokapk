@@ -6,3 +6,38 @@ web-build/
 android/
 ios/
 .env
+# Environment files
+.env.*
+!.env.example
+
+# Credentials & secrets
+credentials.json
+google-services.json
+GoogleService-Info.plist
+
+# Keystore & certificates
+*.keystore
+*.jks
+*.p12
+*.p8
+*.mobileprovision
+
+# Dependencies
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+*.apk
+*.aab
+*.ipa
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
