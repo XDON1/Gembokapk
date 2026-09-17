@@ -4,42 +4,41 @@ Rilis pertama aplikasi **GEMBOK**, password vault sederhana untuk menyimpan pass
 
 ## ✨ Fitur
 
-- Master PIN untuk mengunci dan membuka aplikasi.
-- Menambahkan entri password dengan judul, username, password, dan situs/aplikasi.
-- Menyimpan data secara lokal menggunakan AsyncStorage.
-- Mencari entri berdasarkan judul.
-- Menyalin password ke clipboard.
-- Clipboard password dikosongkan otomatis setelah satu menit.
-- Menghapus entri password.
-- Penilaian kekuatan password: Lemah, Sedang, atau Kuat.
-- Pilihan tema gelap dan terang.
+- 🔒 Menyimpan password dengan aman
+- 📱 Antarmuka sederhana dan mudah dipakai
+- 🚀 Dibuat dengan React Native + Expo
+- 📦 Build otomatis via GitHub Actions
 
 ## 📥 Cara Install
 
-1. Download file `app-release.apk` di bagian Assets.
-2. Transfer file APK ke HP Android.
-3. Buka file APK.
-4. Aktifkan “Izinkan install dari sumber tidak dikenal” jika diminta.
-5. Tap **Install**.
+1. Download file `app-release.apk` di bagian **Assets** di bawah
+2. Transfer ke HP Android (via WhatsApp, Google Drive, atau kabel USB)
+3. Buka file APK di HP
+4. Jika muncul peringatan, aktifkan **"Izinkan install dari sumber tidak dikenal"**
+5. Tap **Install** dan tunggu hingga selesai
 
 ## 📋 Persyaratan
 
-- Android 8.0+.
-- Ruang penyimpanan minimal 50 MB.
+- Android 8.0 (Oreo) atau lebih baru
+- Ruang penyimpanan kosong minimal 50 MB
+
+## ⚠️ Catatan Penting
+
+- Ini adalah **rilis perdana**. Fitur masih terbatas.
+- Laporkan bug atau saran di tab Issues
 
 ## 🛠️ Detail Teknis
 
-- Versi: 1.0.0
-- Build: APK (Android)
-- Package Android: `com.gembok.passwordmanager`
-- Framework: Expo SDK 51 (React Native 0.74.5)
-- Build Date: 2026-09-18
-- Ukuran APK: [info belum tersedia]
+- **Versi**: 1.0.0
+- **Build**: APK (Android)
+- **Framework**: Expo SDK (React Native)
+- **Build Date**: 18 September 2026
 
 ## 🙏 Terima Kasih
 
-Terima kasih sudah mencoba GEMBOK!
+Terima kasih sudah mencoba GEMBOK! Semoga bermanfaat. 🎉
 
 ---
 
-**Full Changelog**: [lihat commit history](https://github.com/XDON1/Gembokapk/commits/v1.0.0)
+**Full Changelog**: https://github.com/XDON1/Gembokapk/commits/v1.0.0
+
