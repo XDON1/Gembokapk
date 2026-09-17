@@ -1,6 +1,6 @@
 # 🔐 GEMBOK v1.0.0 — Rilis Perdana
 
-Rilis pertama **GEMBOK**, aplikasi password vault sederhana untuk menyimpan dan mengelola kredensial secara lokal di perangkat Android.
+Rilis pertama aplikasi **GEMBOK**, password vault sederhana untuk menyimpan password dengan aman.
 
 ## ✨ Fitur
 
