@@ -1,14 +1,18 @@
-# Gembok APK
+# 🔐 GEMBOK
 
-Aplikasi Android untuk mengamankan dan menyimpan kata sandi dengan enkripsi lokal. Dibangun menggunakan React Native / Expo.
+Aplikasi password vault sederhana untuk menyimpan password dengan aman.
 
-## Fitur
-- Penyimpanan password lokal yang aman.
-- Antarmuka sederhana dan cepat.
-- Open source.
+## ✨ Fitur
+- Menyimpan password terenkripsi
+- Antarmuka sederhana dan mudah dipakai
+- Dibuat dengan React Native + Expo
 
-## Instalasi & Menjalankan
-```bash
-npm install
-npx expo start
-```
+## 📦 Download APK
+Cek halaman Releases untuk versi terbaru.
+
+## 🛠️ Dibuat Dengan
+- Expo
+- React Native
+
+## 📝 Lisensi
+MIT License — lihat file LICENSE untuk detail.
