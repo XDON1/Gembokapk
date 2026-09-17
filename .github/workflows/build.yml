@@ -30,7 +30,7 @@ jobs:
       - name: Build APK
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --platform android --profile preview --non-interactive --output=./app-release.apk
+        run: eas build --platform android --profile preview --non-interactive
 
       - name: Upload APK ke Release
         if: startsWith(github.ref, 'refs/tags/')
