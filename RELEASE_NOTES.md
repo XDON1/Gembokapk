@@ -1,4 +1,4 @@
-# GEMBOK v1.0.1
+# GEMBOK v1.0.8
 
 Rilis Android native pertama GEMBOK, password vault offline untuk menyimpan dan mengelola kredensial di perangkat.
 
@@ -19,7 +19,7 @@ Rilis Android native pertama GEMBOK, password vault offline untuk menyimpan dan 
 
 ## Cara Install
 
-1. Download `app-debug.apk` dari bagian **Assets**.
+1. Download `GEMBOK-v1.0.8.apk` dari bagian **Assets**.
 2. Transfer APK ke HP Android.
 3. Buka file APK di HP.
 4. Izinkan instalasi dari sumber ini jika Android memintanya.
@@ -32,15 +32,15 @@ Rilis Android native pertama GEMBOK, password vault offline untuk menyimpan dan 
 
 ## Catatan Rilis
 
-- APK ini adalah build debug untuk preview dan pengujian.
+- APK ini adalah build release Android untuk instalasi dan pengujian.
 - Simpan recovery key di tempat aman. Recovery key diperlukan jika PIN terlupa.
 - Jangan memasukkan data produksi sebelum proses backup dan pemulihan diuji.
 - Laporkan bug atau saran melalui tab Issues.
 
 ## Detail Teknis
 
-- **Versi**: 1.0.1
-- **Build**: Android debug APK
+- **Versi**: 1.0.8
+- **Build**: Android release APK
 - **Application ID**: `com.gembok.passwordmanager`
 - **Bahasa**: Kotlin
 - **UI**: Jetpack Compose dan Material 3
@@ -50,7 +50,7 @@ Rilis Android native pertama GEMBOK, password vault offline untuk menyimpan dan 
 
 ## Verifikasi
 
-- Build debug berhasil dijalankan dengan Gradle Wrapper.
+- Build release berhasil dijalankan dengan Gradle Wrapper.
 - APK berhasil dipasang ke perangkat Android yang terhubung.
 - Alur tambah password telah diuji setelah perbaikan crash favicon online.
 

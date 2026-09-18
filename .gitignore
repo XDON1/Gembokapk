@@ -18,6 +18,8 @@ GoogleService-Info.plist
 # Keystore & certificates
 *.keystore
 *.jks
+.keys/
+release-signing.properties
 *.p12
 *.p8
 *.mobileprovision
