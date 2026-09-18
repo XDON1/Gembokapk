@@ -1,44 +1,59 @@
-# 🔐 GEMBOK v1.0.0 — Rilis Perdana
+# GEMBOK v1.0.1
 
-Rilis pertama aplikasi **GEMBOK**, password vault sederhana untuk menyimpan password dengan aman.
+Rilis Android native pertama GEMBOK, password vault offline untuk menyimpan dan mengelola kredensial di perangkat.
 
-## ✨ Fitur
+## Fitur
 
-- 🔒 Menyimpan password dengan aman
-- 📱 Antarmuka sederhana dan mudah dipakai
-- 🚀 Dibuat dengan React Native + Expo
-- 📦 Build otomatis via GitHub Actions
+- PIN utama dengan konfirmasi dan recovery key.
+- Password vault lokal menggunakan Room Database.
+- Field vault dienkripsi dengan AES-GCM dan Android Keystore.
+- Tambah, edit, hapus, dan cari entri password.
+- Salin password dengan pembersihan clipboard otomatis setelah 60 detik.
+- Generator password dengan pilihan panjang dan karakter.
+- Password health berdasarkan entri yang benar-benar tersimpan.
+- Deteksi password lemah dan password yang digunakan ulang.
+- Auto-lock saat aplikasi masuk background.
+- Tema terang dan gelap mengikuti pengaturan sistem Android.
+- Avatar layanan lokal tanpa koneksi favicon atau pengiriman URL ke layanan eksternal.
+- Empty, loading, dan error state.
 
-## 📥 Cara Install
+## Cara Install
 
-1. Download file `app-release.apk` di bagian **Assets** di bawah
-2. Transfer ke HP Android (via WhatsApp, Google Drive, atau kabel USB)
-3. Buka file APK di HP
-4. Jika muncul peringatan, aktifkan **"Izinkan install dari sumber tidak dikenal"**
-5. Tap **Install** dan tunggu hingga selesai
+1. Download `app-debug.apk` dari bagian **Assets**.
+2. Transfer APK ke HP Android.
+3. Buka file APK di HP.
+4. Izinkan instalasi dari sumber ini jika Android memintanya.
+5. Tekan **Install**.
 
-## 📋 Persyaratan
+## Persyaratan
 
-- Android 8.0 (Oreo) atau lebih baru
-- Ruang penyimpanan kosong minimal 50 MB
+- Android 8.0 (API 26) atau lebih baru.
+- Ruang penyimpanan kosong sekitar 50 MB.
 
-## ⚠️ Catatan Penting
+## Catatan Rilis
 
-- Ini adalah **rilis perdana**. Fitur masih terbatas.
-- Laporkan bug atau saran di tab Issues
+- APK ini adalah build debug untuk preview dan pengujian.
+- Simpan recovery key di tempat aman. Recovery key diperlukan jika PIN terlupa.
+- Jangan memasukkan data produksi sebelum proses backup dan pemulihan diuji.
+- Laporkan bug atau saran melalui tab Issues.
 
-## 🛠️ Detail Teknis
+## Detail Teknis
 
-- **Versi**: 1.0.0
-- **Build**: APK (Android)
-- **Framework**: Expo SDK (React Native)
+- **Versi**: 1.0.1
+- **Build**: Android debug APK
+- **Application ID**: `com.gembok.passwordmanager`
+- **Bahasa**: Kotlin
+- **UI**: Jetpack Compose dan Material 3
+- **Database**: Room
+- **Keamanan**: Android Keystore dan AES-GCM
 - **Build Date**: 18 September 2026
 
-## 🙏 Terima Kasih
+## Verifikasi
 
-Terima kasih sudah mencoba GEMBOK! Semoga bermanfaat. 🎉
+- Build debug berhasil dijalankan dengan Gradle Wrapper.
+- APK berhasil dipasang ke perangkat Android yang terhubung.
+- Alur tambah password telah diuji setelah perbaikan crash favicon online.
 
----
+Full changelog:
 
-**Full Changelog**: https://github.com/XDON1/Gembokapk/commits/v1.0.0
-
+https://github.com/XDON1/Gembokapk/commits/main
