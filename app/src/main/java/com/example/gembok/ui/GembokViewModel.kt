@@ -37,6 +37,13 @@ sealed interface ActiveSheet {
     data object ShowRecoveryKey : ActiveSheet
 }
 
+data class PasswordDraft(
+    val title: String = "",
+    val username: String = "",
+    val password: String = "",
+    val siteOrApp: String = ""
+)
+
 sealed interface UiState {
     data object Loading : UiState
     data object Ready : UiState
@@ -65,6 +72,9 @@ class GembokViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _activeSheet = MutableStateFlow<ActiveSheet>(ActiveSheet.None)
     val activeSheet: StateFlow<ActiveSheet> = _activeSheet.asStateFlow()
+
+    private val _passwordDraft = MutableStateFlow(PasswordDraft())
+    val passwordDraft: StateFlow<PasswordDraft> = _passwordDraft.asStateFlow()
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
@@ -224,16 +234,25 @@ class GembokViewModel(application: Application) : AndroidViewModel(application) 
     fun lock() {
         if (_hasMasterPin.value) {
             _isLocked.value = true
-            _activeSheet.value = ActiveSheet.None
         }
     }
 
     fun openSheet(sheet: ActiveSheet) {
         _activeSheet.value = sheet
+        _passwordDraft.value = when (sheet) {
+            is ActiveSheet.Edit -> PasswordDraft(sheet.item.title, sheet.item.username, sheet.item.password, sheet.item.siteOrApp)
+            ActiveSheet.Add -> PasswordDraft()
+            else -> _passwordDraft.value
+        }
     }
 
     fun closeSheet() {
         _activeSheet.value = ActiveSheet.None
+        _passwordDraft.value = PasswordDraft()
+    }
+
+    fun updatePasswordDraft(draft: PasswordDraft) {
+        _passwordDraft.value = draft
     }
 
     fun setSearchQuery(query: String) {

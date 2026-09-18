@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
             val recoveryKey by viewModel.recoveryKey.collectAsState()
             val newlyGeneratedRecoveryKey by viewModel.newlyGeneratedRecoveryKey.collectAsState()
             val activeSheet by viewModel.activeSheet.collectAsState()
+            val passwordDraft by viewModel.passwordDraft.collectAsState()
             val rawPasswords by viewModel.rawPasswords.collectAsState()
             val filteredPasswords by viewModel.filteredPasswords.collectAsState()
             val searchQuery by viewModel.searchQuery.collectAsState()
@@ -154,6 +155,8 @@ class MainActivity : ComponentActivity() {
                                     is ActiveSheet.Add -> {
                                         PasswordFormScreen(
                                             initialItem = null,
+                                            draft = passwordDraft,
+                                            onDraftChange = { viewModel.updatePasswordDraft(it) },
                                             onSave = { _, title, user, pass, site ->
                                                 viewModel.savePassword(null, title, user, pass, site)
                                             },
@@ -164,6 +167,8 @@ class MainActivity : ComponentActivity() {
                                     is ActiveSheet.Edit -> {
                                         PasswordFormScreen(
                                             initialItem = sheet.item,
+                                            draft = passwordDraft,
+                                            onDraftChange = { viewModel.updatePasswordDraft(it) },
                                             onSave = { id, title, user, pass, site ->
                                                 viewModel.savePassword(id, title, user, pass, site)
                                             },

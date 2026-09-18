@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -42,7 +43,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,6 +73,8 @@ import kotlin.random.Random
 @Composable
 fun PasswordFormScreen(
     initialItem: PasswordEntity? = null,
+    draft: PasswordDraft,
+    onDraftChange: (PasswordDraft) -> Unit,
     onSave: (id: String?, title: String, username: String, pass: String, siteOrApp: String) -> Boolean,
     onCancel: () -> Unit,
     onOpenGenerator: () -> Unit,
@@ -79,17 +82,13 @@ fun PasswordFormScreen(
 ) {
     val isEditMode = initialItem != null
 
-    var title by remember { mutableStateOf(initialItem?.title ?: "") }
-    var username by remember { mutableStateOf(initialItem?.username ?: "") }
-    var password by remember { mutableStateOf(initialItem?.password ?: "") }
-    var siteOrApp by remember { mutableStateOf(initialItem?.siteOrApp ?: "") }
-    var passwordVisible by remember { mutableStateOf(false) }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
-    var showError by remember { mutableStateOf(false) }
+    var showError by rememberSaveable { mutableStateOf(false) }
 
-    val strengthLevel = PasswordHealthEvaluator.evaluateSingle(password)
+    val strengthLevel = PasswordHealthEvaluator.evaluateSingle(draft.password)
     val (strengthLabel, strengthColor, strengthProgress) = when {
-        password.isEmpty() -> Triple("", MaterialTheme.colorScheme.outline, 0f)
+        draft.password.isEmpty() -> Triple("", MaterialTheme.colorScheme.outline, 0f)
         strengthLevel == PasswordHealthEvaluator.StrengthLevel.WEAK -> Triple("Lemah", HealthVulnerable, 0.33f)
         strengthLevel == PasswordHealthEvaluator.StrengthLevel.FAIR -> Triple("Cukup", HealthFair, 0.66f)
         else -> Triple("Kuat", HealthOptimal, 1.0f)
@@ -98,16 +97,16 @@ fun PasswordFormScreen(
     fun handleQuickRandom() {
         val chars = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*"
         val generated = (1..16).map { chars[Random.nextInt(chars.length)] }.joinToString("")
-        password = generated
+        onDraftChange(draft.copy(password = generated))
         passwordVisible = true
     }
 
     fun handleSave() {
-        if (title.isBlank() || username.isBlank() || password.isBlank()) {
+        if (draft.title.isBlank() || draft.username.isBlank() || draft.password.isBlank()) {
             showError = true
             return
         }
-        val success = onSave(initialItem?.id, title, username, password, siteOrApp)
+        val success = onSave(initialItem?.id, draft.title, draft.username, draft.password, draft.siteOrApp)
         if (!success) {
             showError = true
         }
@@ -154,6 +153,7 @@ fun PasswordFormScreen(
                     .widthIn(max = 600.dp)
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
+                    .imePadding()
                     .padding(horizontal = 20.dp, vertical = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -183,23 +183,23 @@ fun PasswordFormScreen(
 
                             // Real-time live icon preview
                             ServiceLogoAvatar(
-                                title = title.ifBlank { "Baru" },
-                                siteOrApp = siteOrApp,
+                                 title = draft.title.ifBlank { "Baru" },
+                                 siteOrApp = draft.siteOrApp,
                                 size = 36.dp
                             )
                         }
 
                         // Title / Service
                         OutlinedTextField(
-                            value = title,
+                            value = draft.title,
                             onValueChange = {
-                                title = it
+                                onDraftChange(draft.copy(title = it))
                                 showError = false
                             },
                             label = { Text("Nama Layanan / Judul *") },
                             placeholder = { Text("Contoh: Google, GitHub, Bank Mandiri") },
-                            isError = showError && title.isBlank(),
-                            supportingText = if (showError && title.isBlank()) {
+                            isError = showError && draft.title.isBlank(),
+                            supportingText = if (showError && draft.title.isBlank()) {
                                 { Text("Nama layanan wajib diisi", color = MaterialTheme.colorScheme.error) }
                             } else null,
                             singleLine = true,
@@ -216,15 +216,15 @@ fun PasswordFormScreen(
 
                         // Username / Email
                         OutlinedTextField(
-                            value = username,
+                            value = draft.username,
                             onValueChange = {
-                                username = it
+                                onDraftChange(draft.copy(username = it))
                                 showError = false
                             },
                             label = { Text("Nama Pengguna / Email *") },
                             placeholder = { Text("Contoh: user@domain.com") },
-                            isError = showError && username.isBlank(),
-                            supportingText = if (showError && username.isBlank()) {
+                            isError = showError && draft.username.isBlank(),
+                            supportingText = if (showError && draft.username.isBlank()) {
                                 { Text("Nama pengguna wajib diisi", color = MaterialTheme.colorScheme.error) }
                             } else null,
                             singleLine = true,
@@ -244,8 +244,8 @@ fun PasswordFormScreen(
 
                         // Website / App identifier
                         OutlinedTextField(
-                            value = siteOrApp,
-                            onValueChange = { siteOrApp = it },
+                            value = draft.siteOrApp,
+                            onValueChange = { onDraftChange(draft.copy(siteOrApp = it)) },
                             label = { Text("Situs Web atau Aplikasi (Opsional)") },
                             placeholder = { Text("Contoh: https://accounts.google.com") },
                             singleLine = true,
@@ -304,9 +304,9 @@ fun PasswordFormScreen(
                         }
 
                         OutlinedTextField(
-                            value = password,
+                            value = draft.password,
                             onValueChange = {
-                                password = it
+                                onDraftChange(draft.copy(password = it))
                                 showError = false
                             },
                             label = { Text("Kata Sandi *") },
@@ -338,8 +338,8 @@ fun PasswordFormScreen(
                                     }
                                 }
                             },
-                            isError = showError && password.isBlank(),
-                            supportingText = if (showError && password.isBlank()) {
+                            isError = showError && draft.password.isBlank(),
+                            supportingText = if (showError && draft.password.isBlank()) {
                                 { Text("Kata sandi wajib diisi", color = MaterialTheme.colorScheme.error) }
                             } else null,
                             singleLine = true,
@@ -358,7 +358,7 @@ fun PasswordFormScreen(
                         )
 
                         // Strength Meter
-                        AnimatedVisibility(visible = password.isNotEmpty()) {
+                        AnimatedVisibility(visible = draft.password.isNotEmpty()) {
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
