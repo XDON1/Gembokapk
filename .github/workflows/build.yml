@@ -1,4 +1,4 @@
-name: Build APK Otomatis
+name: Build APK Android
 
 on:
   push:
@@ -18,20 +18,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          node-version: '20'
+          distribution: temurin
+          java-version: '21'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Setup EAS CLI
-        run: npm install -g eas-cli
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.3.1'
 
-      - name: Build APK
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build --platform android --profile preview --non-interactive
+      - name: Build debug APK
+        run: gradle :app:assembleDebug --no-daemon
 
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: gembok-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
 

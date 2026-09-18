@@ -31,6 +31,9 @@ yarn-error.log*
 *.apk
 *.aab
 *.ipa
+.gradle/
+build/
+app/build/
 
 # OS
 .DS_Store
@@ -39,5 +42,5 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+local.properties
 *.swp
-
