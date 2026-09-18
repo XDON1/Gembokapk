@@ -15,6 +15,10 @@ val hasReleaseSigning = listOf(
     releaseKeyPassword
 ).all { !it.isNullOrBlank() }
 
+if (!hasReleaseSigning && gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = true) }) {
+    error("Release signing belum dikonfigurasi. Isi RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, dan RELEASE_KEY_PASSWORD.")
+}
+
 android {
     namespace = "com.example.gembok"
     compileSdk = 36
